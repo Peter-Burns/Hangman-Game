@@ -9,6 +9,7 @@ var dictionary = ["soccer","football","goal","field","pitch","cleats","striker",
 var currentWord;
 var isGuessRight;
 var wins=0;
+var losses=0;
 function updateHangman (){
 	hangmanPic= "______   <br>" + "|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <br>";
 	if(guessLeft === 6){
@@ -61,6 +62,18 @@ function updateLettersGuessed(){
 function updateWins(){
 	document.getElementById("wins").innerHTML = "Wins: " + wins;
 }
+function updateLosses(){
+	document.getElementById("losses").innerHTML = "Losses: " + losses;
+}
+function updateResult(result){
+	if(result!=="new")
+	{	
+		document.getElementById("gameResult").innerHTML = "You " + result;
+	}
+	else{
+		document.getElementById("gameResult").innerHTML ='';
+	}
+}
 function resetGame() {
 	guessLeft = 6;
 	guessedLetters=[];
@@ -70,17 +83,17 @@ function resetGame() {
 	drawCurrentWord();
 	updateLettersGuessed();
 	updateWins();
+	updateLosses();
+	updateResult("new");
 }
 function checkGuess(guess){
 	isGuessRight = false;
 	wordSplit = currentWord.split('');
 	for(x in wordSplit){
 		if(guess===wordSplit[x]){
-			console.log(x);
 			isGuessRight = true;
 		}
 	}
-	console.log(isGuessRight);
 	return isGuessRight;
 }
 
@@ -97,19 +110,26 @@ document.onkeyup = function (event){
 		}
 		if(wordLength.replace(/&nbsp/g, '')===currentWord)
 		{
-			alert("You win!");
+			updateResult("won!");
 			wins++;
-			resetGame();
+			updateWins();
+			// resetGame();
 			return
 		}
 		if(guessLeft===0){
-			alert("You lose!");
-			resetGame();
+			updateHangman();
+			updateResult("lost!");
+			losses++;
+			updateLosses();
+			// resetGame();
 			return;
 		}
 		updateGuessesLeft();
 		updateHangman();
 		updateLettersGuessed();
+	}
+	else if(event.key === 'Escape'){
+		resetGame();
 	}
 	else{
 		return;

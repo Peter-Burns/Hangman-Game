@@ -3,19 +3,19 @@ body{
 	background-size: cover;
 }
 h1 {
-	text-align:center;
-	font-size:100px;
-	font-family: 'Patrick Hand', cursive;
+	position:relative;
+	z-index: 1;
 }
 
 h2 {
-	 transform: rotate(-17deg);
+	position:relative;
+	 z-index: 2; 
+	 transform: rotate(-7deg);
 	 color:blue;
 	 font-size:50px;
 	 text-align: center;
 	 font-family: 'Rock Salt', cursive;
-	 margin-top:-20px;
-	 margin-bottom:80px;
+	 margin-top:-50px;
 }
 .gameContainer {
 	border: dotted 2px white;
