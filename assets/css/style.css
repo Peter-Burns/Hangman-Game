@@ -26,20 +26,14 @@ h2 {
 }
 .hangmanDisplayArea {
 	border-right:dotted 2px white;
-	height:300px;
+	height:100%;
 }
 .gamePlayArea {
 	border-left:dotted 2px white;
-	height:300px;
+	height:100%;
 }
 .red-orange-brown {
   background-image: linear-gradient(to bottom, brown, red 50%, orange);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-.green-yellowgreen-yellow-gold {
-  background-image: linear-gradient(to right, green, yellowgreen 33%, yellow 66%, gold);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
