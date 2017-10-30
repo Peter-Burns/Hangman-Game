@@ -10,6 +10,7 @@ var currentWord;
 var isGuessRight;
 var wins=0;
 var losses=0;
+var lost;
 function updateHangman (){
 	hangmanPic= "______   <br>" + "|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <br>";
 	if(guessLeft === 6){
@@ -85,6 +86,7 @@ function resetGame() {
 	updateWins();
 	updateLosses();
 	updateResult("new");
+	lost=false;
 }
 function checkGuess(guess){
 	isGuessRight = false;
@@ -99,7 +101,7 @@ function checkGuess(guess){
 
 resetGame();
 document.onkeyup = function (event){
-	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1)
+	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && lost===false)
 	{
 		guessedLetters.push(event.key);
 		guessLeft--;
@@ -120,7 +122,10 @@ document.onkeyup = function (event){
 			updateHangman();
 			updateResult("lost!");
 			losses++;
+			lost=true;
 			updateLosses();
+			updateGuessesLeft();
+			updateLettersGuessed();
 			// resetGame();
 			return;
 		}
