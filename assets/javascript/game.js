@@ -13,6 +13,7 @@ var losses=0;
 var lost;
 var myMusic;
 var myLossMusic;
+var won;
 function updateHangman (){
 	hangmanPic= "______   <br>" + "|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <br>";
 	if(guessLeft === 6){
@@ -89,6 +90,7 @@ function resetGame() {
 	updateLosses();
 	updateResult("new");
 	lost=false;
+	won=false;
 }
 function winSound(src){
 	this.sound = document.createElement("audio");
@@ -116,7 +118,7 @@ resetGame();
 myMusic = new winSound("./assets/sounds/victory.wav");
 myLossMusic = new winSound("./assets/sounds/loss.wav");
 document.onkeyup = function (event){
-	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && lost===false)
+	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && lost===false && won===false)
 	{
 		guessedLetters.push(event.key);
 		guessLeft--;
@@ -124,15 +126,16 @@ document.onkeyup = function (event){
 		if(isGuessRight){
 			guessLeft++;
 			drawCurrentWord();
-		}
-		if(wordLength.replace(/&nbsp/g, '')===currentWord)
-		{
-			updateResult("won!");
-			wins++;
-			myMusic.play();
-			updateWins();
-			// resetGame();
-			return
+			if(wordLength.replace(/&nbsp/g, '')===currentWord)
+			{
+				updateResult("won!");
+				wins++;
+				won=true;
+				myMusic.play();
+				updateWins();
+				// resetGame();
+				return
+			}
 		}
 		if(guessLeft===0){
 			updateHangman();
