@@ -10,7 +10,8 @@ var isGuessRight;
 var gameOver=false;
 var myMusic;
 var myLossMusic;
-var won;
+var wins=0;
+var losses=0;
 function updateHangman (){
 	hangmanPic= "______   <br>" + "|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <br>";
 	if(guessLeft === 6){
