@@ -2,15 +2,12 @@ var alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p',
 var guessLeft;
 var hangmanPic;
 var wordLength;
-var testWord="eee www";
 var guessedLetters;
 var wordSplit;
 var dictionary = ["manager", "champion","soccer","football","goal","field","pitch","cleats","striker","defender","midfielder","goalkeeper","goalie","hat trick"];
 var currentWord;
 var isGuessRight;
-var wins=0;
-var losses=0;
-var lost;
+var gameOver=false;
 var myMusic;
 var myLossMusic;
 var won;
@@ -89,8 +86,7 @@ function resetGame() {
 	updateWins();
 	updateLosses();
 	updateResult("new");
-	lost=false;
-	won=false;
+	gameOver=false;
 }
 function winSound(src){
 	this.sound = document.createElement("audio");
@@ -118,7 +114,7 @@ resetGame();
 myMusic = new winSound("./assets/sounds/victory.wav");
 myLossMusic = new winSound("./assets/sounds/loss.wav");
 document.onkeyup = function (event){
-	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && lost===false && won===false)
+	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && gameOver===false)
 	{
 		guessedLetters.push(event.key);
 		guessLeft--;
@@ -130,7 +126,7 @@ document.onkeyup = function (event){
 			{
 				updateResult("won!");
 				wins++;
-				won=true;
+				gameOver=true;
 				myMusic.play();
 				updateWins();
 				// resetGame();
@@ -141,7 +137,7 @@ document.onkeyup = function (event){
 			updateHangman();
 			updateResult("lost!");
 			losses++;
-			lost=true;
+			gameOver=true;
 			myLossMusic.play();
 			updateLosses();
 			updateGuessesLeft();
