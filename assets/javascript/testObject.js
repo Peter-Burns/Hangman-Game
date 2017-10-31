@@ -13,6 +13,7 @@ var myLossMusic;
 var wins=0;
 var losses=0;
 var hangmanGame = {
+	//draws the hangman ascii on the left
 	updateHangman : function () {
 		hangmanPic= "______   <br>" + "|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp | <br>";
 		if(guessLeft === 6){
@@ -39,10 +40,11 @@ var hangmanGame = {
 		}
 		document.getElementById("hangmanAscii").innerHTML = hangmanPic;
 	},
+	//draws the current state of the guessed word with underlines where characters are still unknown
 	drawCurrentWord : function() {
 		wordLength=[''];
 		for (var i = 0; i < currentWord.length; i++) {
-
+			//if there's a phrase, separate the underlined letters
 			if(currentWord.charAt(i) === ' ')
 			{
 				wordLength+=' &nbsp&nbsp'
@@ -68,6 +70,7 @@ var hangmanGame = {
 	updateLosses : function() {
 		document.getElementById("losses").innerHTML = "Losses: " + losses;
 	},
+	//shows whether user won or lost and clears on new game start
 	updateResult : function(result){
 		if(result!=="new")
 		{	
@@ -77,6 +80,7 @@ var hangmanGame = {
 			document.getElementById("gameResult").innerHTML ='';
 		}
 	},
+	//starts a new game
 	resetGame : function() {
 		guessLeft = 6;
 		guessedLetters=[];
@@ -90,6 +94,7 @@ var hangmanGame = {
 		this.updateResult("new");
 		gameOver=false;
 	},
+	//initializes sound objects and gives them a play function
 	winSound : function(src) {
 		this.sound = document.createElement("audio");
 		this.sound.src = src;
@@ -112,9 +117,12 @@ var hangmanGame = {
 		return isGuessRight;
 	}
 }
+//initializes the game on page load
 hangmanGame.resetGame();
+//creates the win and loss sound elements
 myMusic = new hangmanGame.winSound("./assets/sounds/victory.wav");
 myLossMusic = new hangmanGame.winSound("./assets/sounds/loss.wav");
+//the user input
 document.onkeyup = function (event){
 	if(alphabet.indexOf(event.key)>-1 && guessedLetters.indexOf(event.key) == -1 && gameOver===false)
 	{
