@@ -41,6 +41,9 @@ var hangmanGame = {
 		document.getElementById("hangmanAscii").innerHTML = hangmanPic;
 	},
 	//draws the current state of the guessed word with underlines where characters are still unknown
+	updateCurrentWord: function(word){
+		document.getElementById("wordDisplay").innerHTML =word;
+	},
 	drawCurrentWord : function() {
 		wordLength=[''];
 		for (var i = 0; i < currentWord.length; i++) {
@@ -56,7 +59,7 @@ var hangmanGame = {
 				wordLength+='_&nbsp';
 			}
 		}
-		document.getElementById("wordDisplay").innerHTML = wordLength;
+		this.updateCurrentWord(wordLength);
 	},
 	updateGuessesLeft : function() {
 		document.getElementById("guessLeft").innerHTML = guessLeft;
